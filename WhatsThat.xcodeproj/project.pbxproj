@@ -23,6 +23,9 @@
 		9170A4AE1FC5479B00DF4341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9170A4AD1FC5479B00DF4341 /* Assets.xcassets */; };
 		9170A4B11FC5479B00DF4341 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9170A4AF1FC5479B00DF4341 /* LaunchScreen.storyboard */; };
 		91866DC71FC65CB600FDE1F5 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91866DC61FC65CB600FDE1F5 /* ResponseModel.swift */; };
+		918CF1391FCB626600929B26 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918CF1381FCB626600929B26 /* SummaryViewController.swift */; };
+		918CF13B1FCB691100929B26 /* WikipediaAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918CF13A1FCB691100929B26 /* WikipediaAPIManager.swift */; };
+		918CF13D1FCB698100929B26 /* WikipediaResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918CF13C1FCB698100929B26 /* WikipediaResultModel.swift */; };
 		91A8893A1FC5CEF5009D37F9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A8893B1FC5CEF5009D37F9 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 		D0E0CA5C21D66C32348215D7 /* Pods_WhatsThat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5CDC3242023E7257E4E8A1 /* Pods_WhatsThat.framework */; };
 /* End PBXBuildFile section */
@@ -46,7 +49,11 @@
 		9170A4AD1FC5479B00DF4341 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9170A4B01FC5479B00DF4341 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9170A4B21FC5479B00DF4341 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		917947B81FCBA91D00F109F8 /* StringExtensionHTML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = StringExtensionHTML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		91866DC61FC65CB600FDE1F5 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		918CF1381FCB626600929B26 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
+		918CF13A1FCB691100929B26 /* WikipediaAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPIManager.swift; sourceTree = "<group>"; };
+		918CF13C1FCB698100929B26 /* WikipediaResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaResultModel.swift; path = /Users/chetanmahajan/Documents/cmahajan/Desktop/ios/WhatsThat/WhatsThat/models/WikipediaResultModel.swift; sourceTree = "<absolute>"; };
 		91A8893B1FC5CEF5009D37F9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A9CB4FB23DF55527F31060 /* Pods-WhatsThat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsThat.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatsThat/Pods-WhatsThat.release.xcconfig"; sourceTree = "<group>"; };
 		DF5CDC3242023E7257E4E8A1 /* Pods_WhatsThat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsThat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -82,6 +89,7 @@
 				912F12571FC619C800B694F1 /* Requests.swift */,
 				912F12591FC61A2400B694F1 /* GoogleVisionRequestModel.swift */,
 				912F12611FC657E500B694F1 /* GoogleVisionResponseModel.swift */,
+				918CF13C1FCB698100929B26 /* WikipediaResultModel.swift */,
 				912F12631FC6581300B694F1 /* Responses.swift */,
 				912F12651FC6583C00B694F1 /* LabelAnnotationsq.swift */,
 				91866DC61FC65CB600FDE1F5 /* ResponseModel.swift */,
@@ -93,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				9124051D1FC5C42F00763E69 /* GoogleVisionAPIManager.swift */,
+				918CF13A1FCB691100929B26 /* WikipediaAPIManager.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -100,9 +109,10 @@
 		912F12671FC6585F00B694F1 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				918CF1381FCB626600929B26 /* SummaryViewController.swift */,
+				911AFC8B1FC7D39A00180EC7 /* TableViewController.swift */,
 				9170A4A81FC5479B00DF4341 /* ViewController.swift */,
 				911AFC8F1FC7DDB400180EC7 /* IdentificationLabelViewCell.swift */,
-				911AFC8B1FC7D39A00180EC7 /* TableViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -159,6 +169,7 @@
 		9CE1C6B3AC4E3536231A3FD8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				917947B81FCBA91D00F109F8 /* StringExtensionHTML.framework */,
 				91A8893B1FC5CEF5009D37F9 /* SwiftyJSON.framework */,
 				DF5CDC3242023E7257E4E8A1 /* Pods_WhatsThat.framework */,
 			);
@@ -244,11 +255,13 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-WhatsThat/Pods-WhatsThat-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/StringExtensionHTML/StringExtensionHTML.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/StringExtensionHTML.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,11 +314,14 @@
 				911AFC8C1FC7D39A00180EC7 /* TableViewController.swift in Sources */,
 				912F12541FC618B900B694F1 /* Features.swift in Sources */,
 				912F12561FC6193100B694F1 /* Image.swift in Sources */,
+				918CF1391FCB626600929B26 /* SummaryViewController.swift in Sources */,
 				912F12581FC619C800B694F1 /* Requests.swift in Sources */,
 				9170A4A71FC5479B00DF4341 /* AppDelegate.swift in Sources */,
+				918CF13B1FCB691100929B26 /* WikipediaAPIManager.swift in Sources */,
 				912F12621FC657E500B694F1 /* GoogleVisionResponseModel.swift in Sources */,
 				912F12661FC6583C00B694F1 /* LabelAnnotationsq.swift in Sources */,
 				911AFC901FC7DDB500180EC7 /* IdentificationLabelViewCell.swift in Sources */,
+				918CF13D1FCB698100929B26 /* WikipediaResultModel.swift in Sources */,
 				912F12641FC6581300B694F1 /* Responses.swift in Sources */,
 				91866DC71FC65CB600FDE1F5 /* ResponseModel.swift in Sources */,
 				912F125A1FC61A2400B694F1 /* GoogleVisionRequestModel.swift in Sources */,
@@ -439,9 +455,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PN67A5Z3M2;
 				INFOPLIST_FILE = WhatsThat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gwu.edu.WhatsThat;
+				PRODUCT_BUNDLE_IDENTIFIER = myapp.WhatsThat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -454,9 +472,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = PN67A5Z3M2;
 				INFOPLIST_FILE = WhatsThat/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = gwu.edu.WhatsThat;
+				PRODUCT_BUNDLE_IDENTIFIER = myapp.WhatsThat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

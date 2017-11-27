@@ -9,7 +9,6 @@ import UIKit
 
 class IdentificationLabelViewCell: UITableViewCell {
     
-    
     @IBOutlet weak var identificationLabel: UILabel!
     
     override func awakeFromNib() {

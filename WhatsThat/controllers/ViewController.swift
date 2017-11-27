@@ -9,7 +9,23 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
+    
+    @IBAction func usePhotoAlbum(_ sender: UIButton) {
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        myVC.newMedia = false
+        navigationController?.pushViewController(myVC, animated: true)
+    }
+    
+    @IBAction func useCamera(_ sender: UIButton) {
+        
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "TableViewController") as! TableViewController
+        myVC.newMedia = true
+        navigationController?.pushViewController(myVC, animated: true)
+        
+    }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
