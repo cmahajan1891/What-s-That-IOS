@@ -10,10 +10,17 @@ import Foundation
 
 protocol WikiDescriptionDelegate {
     func descriptionFound(description: String)
-    func descriptionNotFound()
+    func descriptionNotFound(reason: WikipediaAPIManager.FailureReason)
 }
 
 class WikipediaAPIManager {
+    
+    enum FailureReason {
+        case networkRequestFailed
+        case badJSONResponse
+        case invalidData
+        case invalidParsingJSON
+    }
     
     var delegate: WikiDescriptionDelegate?
     
@@ -40,20 +47,20 @@ class WikipediaAPIManager {
                 
                 //check for valid response with 200 (success)
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    self.delegate?.descriptionNotFound()
+                    self.delegate?.descriptionNotFound(reason: .networkRequestFailed)
                     return
                 }
                 
                 guard let data = data, let wikiJsonObject = try? JSONSerialization.jsonObject(with: data, options: [])
                     //TODO Need to change this.
                     as? [String:Any] ?? [String:Any]() else {
-                        self.delegate?.descriptionNotFound()
+                        self.delegate?.descriptionNotFound(reason: .badJSONResponse)
                         
                         return
                 }
                 
                 guard let query = wikiJsonObject["query"] as? [String:Any] else {
-                    self.delegate?.descriptionNotFound()
+                    self.delegate?.descriptionNotFound(reason: .invalidData)
                     
                     return
                 }
@@ -66,7 +73,7 @@ class WikipediaAPIManager {
                     
                     guard let pagesJsonObject = query["pages"] as? [String:Any], let uniqueId = pagesJsonObject[pageid!] as? [String:Any], let extract = uniqueId["extract"]  as? String else {
                         
-                        self.delegate?.descriptionNotFound()
+                        self.delegate?.descriptionNotFound(reason: .invalidParsingJSON)
                         
                         return
                     }

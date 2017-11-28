@@ -13,7 +13,7 @@ import MBProgressHUD
 class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
     var labels: [ResponseModel] = []
-    var googleVisionAPIManager: GoogleVisionAPIManager?
+    var googleVisionAPIManager = GoogleVisionAPIManager()
     var newMedia: Bool?
     
     @IBOutlet weak var imageView: UIImageView!
@@ -47,13 +47,8 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         self.present(imagePicker, animated: true,
                      completion: nil)
         
-        googleVisionAPIManager = GoogleVisionAPIManager()
-        googleVisionAPIManager?.delegate = self
-        
-        
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(TableViewController.tapFunction))
-//        identificationLabel.isUserInteractionEnabled = true
-//        identificationLabel.addGestureRecognizer(tap)
+       
+        googleVisionAPIManager.delegate = self
 
         
         // Uncomment the following line to preserve selection between presentations
@@ -84,11 +79,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 MBProgressHUD.showAdded(to: tableView, animated: true)
                 imageView.image = image
                 
-                if googleVisionAPIManager != nil {
-                    
-                    let imageBase64: String = googleVisionAPIManager!.base64EncodeImage(image)
-                    googleVisionAPIManager?.createRequest(with: imageBase64)
-                }
+                
+                // TODO Implement this as a function to call it through the extension not found.
+                //if googleVisionAPIManager != nil {
+                let imageBase64: String = googleVisionAPIManager.base64EncodeImage(image)
+                googleVisionAPIManager.createRequest(with: imageBase64)
+                //}
                 
             }
             
@@ -172,7 +168,43 @@ extension TableViewController: GoogleVisionAPIManagerDelegate{
         }
     }
     
-    func labelsNotReceived() {
-        //print("No Results Found.")
+    func labelsNotReceived(reason: GoogleVisionAPIManager.FailureReason) {
+        //print()
+        
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.tableView, animated: true)
+            
+            let alertController = UIAlertController(title: "Problem fetching labels.", message: reason.rawValue, preferredStyle: .alert)
+            
+            self.tableView.reloadData()
+            switch reason {
+            case .badJSONResponse:
+                //print("Bad JSON Response.")
+                let okAction = UIAlertAction(title: "OK",
+                                                 
+                                                 style: .default, handler: nil)
+                alertController.addAction(okAction)
+                
+            case .networkRequestFailed:
+                
+                let retryAction = UIAlertAction(title: "Retry", style: .default, handler: { (action) in
+                   // ADD Your code here.
+                    
+                })
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                                                 
+                                                 style: .cancel, handler: nil)
+                
+                alertController.addAction(retryAction)
+                alertController.addAction(cancelAction)
+                
+                
+            }
+            
+            self.present(alertController, animated: true,
+                         completion: nil)
+        }
+        
     }
 }

@@ -59,7 +59,6 @@ public class GoogleVisionRequestModel: Codable {
     
             let dictionary = NSMutableDictionary()
     
-    
             return dictionary
         }
     

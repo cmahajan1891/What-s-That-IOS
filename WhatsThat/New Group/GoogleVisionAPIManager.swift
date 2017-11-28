@@ -12,10 +12,16 @@ import SwiftyJSON
 
 protocol GoogleVisionAPIManagerDelegate {
     func labelsReceived(labels: [ResponseModel])
-    func labelsNotReceived()
+    func labelsNotReceived(reason: GoogleVisionAPIManager.FailureReason)
 }
 
 class GoogleVisionAPIManager {
+    
+    enum FailureReason: String {
+        case networkRequestFailed = "Your Request Failed, Please Try again."
+        case badJSONResponse = "Bad JSON Response."
+    }
+    
     var googleAPIKey = "AIzaSyCwT_7AmDe9BYsqsiYDau5nGWS0XgoD3Yk"
     var googleURL: URL {
         return URL(string: "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)")!
@@ -96,7 +102,6 @@ class GoogleVisionAPIManager {
                 
                     let jsonDecoder = JSONDecoder()
                     if let responseModel = try? jsonDecoder.decode(GoogleVisionResponseModel.self, from: data!) {
-                    
                         
                         let labelAnnotations = responseModel.responses?[0].labelAnnotations
                         
@@ -116,11 +121,11 @@ class GoogleVisionAPIManager {
                          self.delegate?.labelsReceived(labels: labels)
                     }
                     else {
-                        self.delegate?.labelsNotReceived()
+                        self.delegate?.labelsNotReceived(reason: .badJSONResponse)
                     }
             }
             else {
-                self.delegate?.labelsNotReceived()
+                self.delegate?.labelsNotReceived(reason: .networkRequestFailed)
             }
         }
         

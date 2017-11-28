@@ -11,7 +11,6 @@ struct Responses : Codable {
     let labelAnnotations : [LabelAnnotations]?
     
     enum CodingKeys: String, CodingKey {
-        
         case labelAnnotations = "labelAnnotations"
     }
     

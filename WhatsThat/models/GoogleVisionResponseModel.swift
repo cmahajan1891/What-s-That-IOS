@@ -11,7 +11,6 @@ struct GoogleVisionResponseModel : Codable {
     let responses : [Responses]?
     
     enum CodingKeys: String, CodingKey {
-        
         case responses = "responses"
     }
     

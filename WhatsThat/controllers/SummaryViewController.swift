@@ -67,12 +67,23 @@ extension SummaryViewController : WikiDescriptionDelegate {
         
     }
     
-    func descriptionNotFound() {
-        print("Description Not found.")
+    func descriptionNotFound(reason: WikipediaAPIManager.FailureReason) {
+        //print("Description Not found.")
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.descriptionText, animated: true)
-            self.descriptionText.text = "No Information Found for the Selected Text."
+
+            switch reason {
+            case .networkRequestFailed:
+                self.descriptionText.text = "Network Request Failed."
+            case .badJSONResponse:
+                self.descriptionText.text = "Bad JSON Response."
+            case .invalidData:
+                self.descriptionText.text = "Invalid Data."
+            case .invalidParsingJSON:
+                self.descriptionText.text = "Problem while parsing the JSON."
+            }
         }
+        
     }
 }
 
