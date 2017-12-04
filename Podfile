@@ -8,5 +8,6 @@ target 'WhatsThat' do
   # Pods for WhatsThat
   pod 'SwiftyJSON'
   pod 'MBProgressHUD', '~> 1.1.0'
-
+  pod 'TwitterKit'
+  
 end

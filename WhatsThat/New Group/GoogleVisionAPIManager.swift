@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import SwiftyJSON
+
 
 protocol GoogleVisionAPIManagerDelegate {
     func labelsReceived(labels: [ResponseModel])

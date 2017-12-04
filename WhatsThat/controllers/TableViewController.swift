@@ -16,11 +16,17 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
     var googleVisionAPIManager = GoogleVisionAPIManager()
     var newMedia: Bool?
     
+//    var locationFinder: LocationFinder?
+    
     @IBOutlet weak var imageView: UIImageView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        locationFinder = LocationFinder()
+//        locationFinder?.delegate = self
+//        locationFinder?.findLocation()
         
         let imagePicker = UIImagePickerController()
         imagePicker.delegate = self
@@ -208,3 +214,18 @@ extension TableViewController: GoogleVisionAPIManagerDelegate{
         
     }
 }
+
+
+//adhere to the location finder delegate
+//extension TableViewController: LocationFinderDelegate {
+//    func locationFound(lat: Double, lon: Double) {
+//        //TODO
+//    }
+//
+//    func locationNotFound() {
+//        //TODO
+//    }
+//
+//
+//}
+

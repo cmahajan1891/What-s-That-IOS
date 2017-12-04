@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WikiDescriptionDelegate {
-    func descriptionFound(description: String)
+    func descriptionFound(description: String, pageId: String?)
     func descriptionNotFound(reason: WikipediaAPIManager.FailureReason)
 }
 
@@ -35,6 +35,8 @@ class WikipediaAPIManager {
             URLQueryItem(name: "prop", value: "extracts"),
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "exchars", value: "500")
+            //URLQueryItem(name: "exintro", value: "explaintext")
+            //URLQueryItem(name: "titles", value: "iPhone")
             
         ]
         
@@ -78,7 +80,7 @@ class WikipediaAPIManager {
                         return
                     }
                     
-                    self.delegate?.descriptionFound(description: extract.description)
+                    self.delegate?.descriptionFound(description: extract.description, pageId: pageid)
                 }
                 
             }

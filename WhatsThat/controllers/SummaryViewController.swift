@@ -8,13 +8,16 @@
 
 import UIKit
 import MBProgressHUD
+import SafariServices
 
-class SummaryViewController: UIViewController, UITextViewDelegate {
+class SummaryViewController: UIViewController, UITextViewDelegate, SFSafariViewControllerDelegate {
     
     
     
     @IBOutlet weak var summaryLabel: UILabel!
     var heading: String?
+    var urlString:String?
+    var delegate: SFSafariViewControllerDelegate?
     
     @IBOutlet weak var descriptionText: UITextView!
     
@@ -51,16 +54,33 @@ class SummaryViewController: UIViewController, UITextViewDelegate {
         // Pass the selected object to the new view controller.
     }
     */
-
+    @IBAction func showSafariView(_ sender: UIButton) {
+        let svc = SFSafariViewController(url: NSURL(string: self.urlString ?? "")! as URL, entersReaderIfAvailable: true)
+        svc.delegate = self
+        self.present(svc, animated: true, completion: nil)
+    }
+    
+    private func safariViewControllerDidFinish(controller: SFSafariViewController)
+    {
+        controller.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func loadTwitterFeed(_ sender: UIButton) {
+        let myVC = storyboard?.instantiateViewController(withIdentifier: "TwittersTimelineTableViewController") as! TwittersTimelineTableViewController
+        myVC.searchQuery = self.heading!
+        navigationController?.pushViewController(myVC, animated: true)
+    }
 }
 
 extension SummaryViewController : WikiDescriptionDelegate {
-    func descriptionFound(description: String) {
+    func descriptionFound(description: String, pageId: String?) {
         //print("desc found called.")
         // Enable auto-correction and Spellcheck
     
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.descriptionText, animated: true)
+            
+            self.urlString = URL(string: "https://en.wikipedia.org/?curid=\(pageId ?? "")")?.absoluteString
             self.descriptionText.text = description.replacingOccurrences(of: "<[^>]+>", with: "", options: String.CompareOptions.regularExpression, range: nil)
         }
         
@@ -85,6 +105,7 @@ extension SummaryViewController : WikiDescriptionDelegate {
         }
         
     }
+    
 }
 
 
