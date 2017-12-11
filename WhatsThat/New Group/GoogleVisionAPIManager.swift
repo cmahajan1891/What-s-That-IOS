@@ -100,29 +100,28 @@ class GoogleVisionAPIManager {
             
             if let response = response as? HTTPURLResponse, response.statusCode == 200 { //200 = success
                 
-                    let jsonDecoder = JSONDecoder()
-                    if let responseModel = try? jsonDecoder.decode(GoogleVisionResponseModel.self, from: data!) {
-                        
-                        let labelAnnotations = responseModel.responses?[0].labelAnnotations
-                        
-                        var labels = [ResponseModel]()
-                        
-                        //convert json data to our model object
-                        for annotation in labelAnnotations! {
-                            
-                            let mid = annotation.mid
-                            let desc = annotation.description
-                            let score = annotation.score
-
-                            
-                            labels.append(ResponseModel(middle: mid!, desc: desc!,sc: score!))
-                        }
+                let jsonDecoder = JSONDecoder()
+                if let responseModel = try? jsonDecoder.decode(GoogleVisionResponseModel.self, from: data!) {
                     
-                         self.delegate?.labelsReceived(labels: labels)
+                    let labelAnnotations = responseModel.responses?[0].labelAnnotations
+                    
+                    var labels = [ResponseModel]()
+                    
+                    //convert json data to our model object
+                    for annotation in labelAnnotations! {
+                        
+                        let mid = annotation.mid
+                        let desc = annotation.description
+                        let score = annotation.score
+                        
+                        labels.append(ResponseModel(middle: mid!, desc: desc!,sc: score!))
                     }
-                    else {
-                        self.delegate?.labelsNotReceived(reason: .badJSONResponse)
-                    }
+                    
+                    self.delegate?.labelsReceived(labels: labels)
+                }
+                else {
+                    self.delegate?.labelsNotReceived(reason: .badJSONResponse)
+                }
             }
             else {
                 self.delegate?.labelsNotReceived(reason: .networkRequestFailed)
@@ -130,7 +129,7 @@ class GoogleVisionAPIManager {
         }
         
         task.resume()
-
+        
     }
     
 }

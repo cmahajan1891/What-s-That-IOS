@@ -45,10 +45,6 @@ public class GoogleVisionRequestModel: Codable {
             if (dictionary["requests"] != nil) { requests = Requests.modelsFromDictionaryArray(array: dictionary["requests"] as! NSArray) }
         }
     
-//    required public init?(reqs: Array<Requests>?) {
-//        requests = reqs
-//    }
-    
     
     /**
      Returns the dictionary representation for the current instance.

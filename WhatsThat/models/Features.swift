@@ -46,12 +46,6 @@ public class Features: Codable {
             maxResults = dictionary["maxResults"] as? Int
         }
     
-//    required public init?(ty :String , max: Int) {
-//        type = ty
-//        maxResults = max
-//    }
-    
-    
     /**
      Returns the dictionary representation for the current instance.
      

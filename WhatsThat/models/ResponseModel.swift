@@ -13,11 +13,13 @@ struct ResponseModel : Codable {
     let description : String?
     let score : Double?
     
+    
     enum CodingKeys: String, CodingKey {
         
         case mid = "mid"
         case description = "description"
         case score = "score"
+        
     }
     
     init(middle: String, desc: String, sc: Double)  {
@@ -25,6 +27,8 @@ struct ResponseModel : Codable {
         mid = middle
         description = desc
         score = sc
+        
+        
     }
     
 }

@@ -50,12 +50,6 @@ public class Requests: Codable {
             
         }
     
-//    required public init?(im: Image, fe: Array<Features>?) {
-//        image = im
-//        features = fe
-//    }
-    
-    
     /**
      Returns the dictionary representation for the current instance.
      

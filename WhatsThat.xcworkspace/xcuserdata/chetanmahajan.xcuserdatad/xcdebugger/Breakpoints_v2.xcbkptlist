@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WhatsThat/controllers/TwittersTimelineViewController.swift"
-            timestampString = "534104297.098204"
+            filePath = "WhatsThat/controllers/FavoriteTableViewController.swift"
+            timestampString = "534658364.0901"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "38"
+            endingLineNumber = "38"
+            landmarkName = "viewWillAppear(_:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,46 +25,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WhatsThat/controllers/TwittersTimelineTableViewController.swift"
-            timestampString = "534107901.103906"
+            filePath = "WhatsThat/controllers/FavoriteTableViewController.swift"
+            timestampString = "534658364.091513"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "19"
-            endingLineNumber = "19"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "22"
+            endingLineNumber = "22"
+            landmarkName = "tableView(_:numberOfRowsInSection:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WhatsThat.TwittersTimelineTableViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "WhatsThat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chetanmahajan/Documents/cmahajan/Desktop/ios/WhatsThat/WhatsThat/controllers/TwittersTimelineTableViewController.swift"
-                  timestampString = "534107302.34593"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "131">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "implicit closure #1 : @autoclosure () throws -&gt; Swift.String in WhatsThat.TwittersTimelineTableViewController.viewDidLoad() -&gt; ()"
-                  moduleName = "WhatsThat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chetanmahajan/Documents/cmahajan/Desktop/ios/WhatsThat/WhatsThat/controllers/TwittersTimelineTableViewController.swift"
-                  timestampString = "534107302.349181"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "19"
-                  endingLineNumber = "19"
-                  offsetFromSymbolStart = "4">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -73,46 +41,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "WhatsThat/controllers/SummaryViewController.swift"
-            timestampString = "534107901.104379"
+            filePath = "WhatsThat/controllers/FavoriteTableViewController.swift"
+            timestampString = "534658366.886098"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "69"
-            endingLineNumber = "69"
-            landmarkName = "loadTwitterFeed(_:)"
+            startingLineNumber = "27"
+            endingLineNumber = "27"
+            landmarkName = "tableView(_:cellForRowAt:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WhatsThat.SummaryViewController.loadTwitterFeed(__ObjC.UIButton) -&gt; ()"
-                  moduleName = "WhatsThat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chetanmahajan/Documents/cmahajan/Desktop/ios/WhatsThat/WhatsThat/controllers/SummaryViewController.swift"
-                  timestampString = "534107302.356438"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "21">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "WhatsThat.SummaryViewController.loadTwitterFeed(__ObjC.UIButton) -&gt; ()"
-                  moduleName = "WhatsThat"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/chetanmahajan/Documents/cmahajan/Desktop/ios/WhatsThat/WhatsThat/controllers/SummaryViewController.swift"
-                  timestampString = "534107302.359635"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "69"
-                  endingLineNumber = "69"
-                  offsetFromSymbolStart = "809">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

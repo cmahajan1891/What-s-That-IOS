@@ -45,11 +45,6 @@ public class Image: Codable {
             content = dictionary["content"] as? String
         }
     
-//    required public init?(cnt: String) {
-//        content = cnt
-//    }
-    
-    
     /**
      Returns the dictionary representation for the current instance.
      

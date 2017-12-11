@@ -10,26 +10,30 @@ import UIKit
 import MobileCoreServices
 import MBProgressHUD
 
-class TableViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
+class ImageIdentificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
     var labels: [ResponseModel] = []
-    var googleVisionAPIManager = GoogleVisionAPIManager()
+    var googleVisionAPIManager: GoogleVisionAPIManager?
     var newMedia: Bool?
     
-//    var locationFinder: LocationFinder?
-    
+    @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageView: UIImageView!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        locationFinder = LocationFinder()
-//        locationFinder?.delegate = self
-//        locationFinder?.findLocation()
-        
         let imagePicker = UIImagePickerController()
+        
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        
+        //Initializing Black Box Classes
+        googleVisionAPIManager = GoogleVisionAPIManager()
+        
+        //Assigning the delegates
         imagePicker.delegate = self
+        googleVisionAPIManager?.delegate = self
         
         if UIImagePickerController.isSourceTypeAvailable(
             UIImagePickerControllerSourceType.savedPhotosAlbum) && newMedia == false {
@@ -38,12 +42,12 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 UIImagePickerControllerSourceType.photoLibrary
             
         }
-        
+            
         else if UIImagePickerController.isSourceTypeAvailable(
             UIImagePickerControllerSourceType.camera) && newMedia == true {
             
             imagePicker.sourceType =
-            UIImagePickerControllerSourceType.camera
+                UIImagePickerControllerSourceType.camera
             
         }
         
@@ -53,15 +57,6 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
         self.present(imagePicker, animated: true,
                      completion: nil)
         
-       
-        googleVisionAPIManager.delegate = self
-
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -85,23 +80,17 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
                 MBProgressHUD.showAdded(to: tableView, animated: true)
                 imageView.image = image
                 
-                
-                // TODO Implement this as a function to call it through the extension not found.
-                //if googleVisionAPIManager != nil {
-                let imageBase64: String = googleVisionAPIManager.base64EncodeImage(image)
-                googleVisionAPIManager.createRequest(with: imageBase64)
-                //}
+                if googleVisionAPIManager != nil {
+                    let imageBase64: String = googleVisionAPIManager!.base64EncodeImage(image)
+                    googleVisionAPIManager!.createRequest(with: imageBase64)
+                }
                 
             }
             
             if (newMedia == true) {
                 
                 UIImageWriteToSavedPhotosAlbum(image, self,
-                                               #selector(TableViewController.image(image:didFinishSavingWithError:contextInfo:)), nil)
-                
-            } else if mediaType.isEqual(to: kUTTypeMovie as String) {
-                
-                // Code to support video here
+                                               #selector(ImageIdentificationViewController.image(image:didFinishSavingWithError:contextInfo:)), nil)
                 
             }
             
@@ -128,42 +117,33 @@ class TableViewController: UITableViewController, UIImagePickerControllerDelegat
             
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     // MARK: - Table view data source
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return labels.count
     }
-
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "identificationCell", for: indexPath) as! IdentificationLabelViewCell
-
+        
         // Configure the cell...
         let label = labels[indexPath.row]
-        
         cell.identificationLabel.text = label.description?.capitalized
-
+        
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let label = labels[indexPath.row]
-        //print("selected Label:", label)
-        let myVC = storyboard?.instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
-        myVC.heading = label.description?.capitalized
-        
-        navigationController?.pushViewController(myVC, animated: true)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "viewDescriptionSegue" {
+            let destinationViewController = segue.destination as? SummaryViewController
+            destinationViewController?.heading = labels[(self.tableView.indexPathForSelectedRow?.row)!].description?.capitalized
+        }
     }
-
 }
 
-extension TableViewController: GoogleVisionAPIManagerDelegate{
+extension ImageIdentificationViewController: GoogleVisionAPIManagerDelegate{
     func labelsReceived(labels: [ResponseModel]) {
         self.labels = labels
         
@@ -175,7 +155,6 @@ extension TableViewController: GoogleVisionAPIManagerDelegate{
     }
     
     func labelsNotReceived(reason: GoogleVisionAPIManager.FailureReason) {
-        //print()
         
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.tableView, animated: true)
@@ -185,16 +164,20 @@ extension TableViewController: GoogleVisionAPIManagerDelegate{
             self.tableView.reloadData()
             switch reason {
             case .badJSONResponse:
-                //print("Bad JSON Response.")
+                
                 let okAction = UIAlertAction(title: "OK",
-                                                 
-                                                 style: .default, handler: nil)
+                                             
+                                             style: .default, handler: nil)
                 alertController.addAction(okAction)
                 
             case .networkRequestFailed:
                 
                 let retryAction = UIAlertAction(title: "Retry", style: .default, handler: { (action) in
-                   // ADD Your code here.
+                    
+                    if self.googleVisionAPIManager != nil {
+                        let imageBase64: String = self.googleVisionAPIManager!.base64EncodeImage((self.imageView?.image)!)
+                        self.googleVisionAPIManager!.createRequest(with: imageBase64)
+                    }
                     
                 })
                 
@@ -214,18 +197,4 @@ extension TableViewController: GoogleVisionAPIManagerDelegate{
         
     }
 }
-
-
-//adhere to the location finder delegate
-//extension TableViewController: LocationFinderDelegate {
-//    func locationFound(lat: Double, lon: Double) {
-//        //TODO
-//    }
-//
-//    func locationNotFound() {
-//        //TODO
-//    }
-//
-//
-//}
 

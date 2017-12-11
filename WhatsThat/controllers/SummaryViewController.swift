@@ -12,48 +12,80 @@ import SafariServices
 
 class SummaryViewController: UIViewController, UITextViewDelegate, SFSafariViewControllerDelegate {
     
-    
-    
     @IBOutlet weak var summaryLabel: UILabel!
+    @IBOutlet weak var descriptionText: UITextView!
+    
     var heading: String?
     var urlString:String?
     var delegate: SFSafariViewControllerDelegate?
-    
-    @IBOutlet weak var descriptionText: UITextView!
-    
-    //var desc: WikipediaResultModel?
+    var persistance: PersistanceManager?
     var wikipediaAPIManager: WikipediaAPIManager?
+    //    var navController: UINavigationController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        summaryLabel.text = heading!
+        // Do any additional setup after loading the view.
+        
+        //        navController = self.navigationController
+        //        let prevController = navController?.previousViewController()
+        //        if prevController != nil {
+        //            if prevController?.title == "Favorites" {
+        //                self.navigationItem.rightBarButtonItems?[0].title = "UnFavorite"
+        //            }
+        //        }
+        summaryLabel.text = heading ?? ""
+        
         let wikipediaAPIManager = WikipediaAPIManager()
         wikipediaAPIManager.delegate = self
+        
         MBProgressHUD.showAdded(to: descriptionText, animated: true)
         wikipediaAPIManager.fetchDescription(topic: heading)
-        // Do any additional setup after loading the view.
+        
+        persistance = PersistanceManager.sharedInstance
+        
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+    
     func textViewDidChange(_ textView: UITextView) {
         self.descriptionText.autocorrectionType = UITextAutocorrectionType.yes
         self.descriptionText.spellCheckingType = UITextSpellCheckingType.yes
         self.descriptionText.sizeToFit()
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    @IBAction func saveFavorites(_ sender: UIBarButtonItem) {
+        
+        //        if self.navigationItem.rightBarButtonItems?[0].title == "UnFavorite" {
+        //            persistance?.removeFavorites(description: self.descriptionText.text, favLabel: self.heading!)
+        //
+        //            let favCtr = self.navigationController?.previousViewController() as! FavoriteTableViewController
+        //            favCtr.tableView.reloadData()
+        //        }
+        //        else {
+        
+        
+        let message = persistance?.saveFavorites(description: self.descriptionText.text, favLabel: self.heading!)
+        let alertController = UIAlertController(title: "Success.", message: message, preferredStyle: .alert)
+        let okAction: UIAlertAction?
+        okAction = UIAlertAction(title: "OK",
+                                 
+                                 style: .default, handler: { (action) in
+//                                    self.navigationController?.popToViewController((self.navigationController?.previousViewController())!, animated: true)
+                                    
+        })
+        
+        alertController.addAction(okAction!)
+        self.present(alertController, animated: true,
+                     completion: nil)
+        
+        
+        
+        //        let favCtr = self.navigationController?.previousViewController() as! FavoriteTableViewController
+        //        favCtr.tableView.reloadData()
+        
+        //        }
+        
     }
-    */
+    
+    
     @IBAction func showSafariView(_ sender: UIButton) {
         let svc = SFSafariViewController(url: NSURL(string: self.urlString ?? "")! as URL, entersReaderIfAvailable: true)
         svc.delegate = self
@@ -65,33 +97,29 @@ class SummaryViewController: UIViewController, UITextViewDelegate, SFSafariViewC
         controller.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func loadTwitterFeed(_ sender: UIButton) {
-        let myVC = storyboard?.instantiateViewController(withIdentifier: "TwittersTimelineTableViewController") as! TwittersTimelineTableViewController
-        myVC.searchQuery = self.heading!
-        navigationController?.pushViewController(myVC, animated: true)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "viewTweetsSegue" {
+            let destinationViewController = segue.destination as? TwittersTimelineTableViewController
+            destinationViewController?.searchQuery = self.heading!
+        }
     }
 }
 
 extension SummaryViewController : WikiDescriptionDelegate {
     func descriptionFound(description: String, pageId: String?) {
-        //print("desc found called.")
-        // Enable auto-correction and Spellcheck
-    
+        
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.descriptionText, animated: true)
-            
             self.urlString = URL(string: "https://en.wikipedia.org/?curid=\(pageId ?? "")")?.absoluteString
             self.descriptionText.text = description.replacingOccurrences(of: "<[^>]+>", with: "", options: String.CompareOptions.regularExpression, range: nil)
         }
-        
-        
     }
     
     func descriptionNotFound(reason: WikipediaAPIManager.FailureReason) {
-        //print("Description Not found.")
+        
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.descriptionText, animated: true)
-
+            
             switch reason {
             case .networkRequestFailed:
                 self.descriptionText.text = "Network Request Failed."
@@ -107,6 +135,3 @@ extension SummaryViewController : WikiDescriptionDelegate {
     }
     
 }
-
-
-

@@ -67,7 +67,6 @@ class WikipediaAPIManager {
                     return
                 }
                 
-                
                 for (_, value) in query {
                     
                     let dict = value as! Dictionary<String, Any>

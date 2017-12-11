@@ -52,5 +52,9 @@
 		<string>twitter</string>
 		<string>twitterauth</string>
 	</array>
+	<key>NSCameraUsageDescription</key>
+	<string>Camera Access Required for Application to work properly.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Photo Album Access Required for Application to work properly.</string>
 </dict>
 </plist>
