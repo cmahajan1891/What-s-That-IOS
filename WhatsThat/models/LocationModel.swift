@@ -11,7 +11,7 @@ import UIKit
 
 class LocationModel: NSObject {
     
-    let responseModel: [ResponseModel]
+    let responseModel: [GoogleVisionResultObject]
     let responseModelKey = "responseModel"
     let latitude: Double
     let latitudeKey = "latitude"
@@ -20,7 +20,7 @@ class LocationModel: NSObject {
     let image: String
     let imageKey = "image"
     
-    init(latitude: Double, longitude: Double, responseModel: [ResponseModel], image: String) {
+    init(latitude: Double, longitude: Double, responseModel: [GoogleVisionResultObject], image: String) {
         self.latitude = latitude
         self.longitude = longitude
         self.responseModel = responseModel
@@ -30,7 +30,7 @@ class LocationModel: NSObject {
     required init?(coder aDecoder: NSCoder) {
         latitude = aDecoder.decodeDouble(forKey: latitudeKey)
         longitude = aDecoder.decodeDouble(forKey: longitudeKey) 
-        responseModel = aDecoder.decodeObject(forKey: responseModelKey) as! [ResponseModel]
+        responseModel = aDecoder.decodeObject(forKey: responseModelKey) as! [GoogleVisionResultObject]
         image = aDecoder.decodeObject(forKey: imageKey) as! String
     }
 }

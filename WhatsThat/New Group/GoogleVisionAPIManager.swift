@@ -11,7 +11,7 @@ import UIKit
 
 
 protocol GoogleVisionAPIManagerDelegate {
-    func labelsReceived(labels: [ResponseModel])
+    func labelsReceived(labels: [GoogleVisionResultObject])
     
     func labelsNotReceived(reason: GoogleVisionAPIManager.FailureReason)
 }
@@ -114,7 +114,7 @@ class GoogleVisionAPIManager {
                     
                     let labelAnnotations = responseModel.responses?[0].labelAnnotations
                     
-                    var labels = [ResponseModel]()
+                    var labels = [GoogleVisionResultObject]()
                     
                     //convert json data to our model object
                     for annotation in labelAnnotations! {
@@ -123,7 +123,7 @@ class GoogleVisionAPIManager {
                         let desc = annotation.description
                         let score = annotation.score
                         
-                        labels.append(ResponseModel(mid: mid!, description: desc!,score: score!))
+                        labels.append(GoogleVisionResultObject(mid: mid!, description: desc!,score: score!))
                     }
                     
                     self.delegate?.labelsReceived(labels: labels)

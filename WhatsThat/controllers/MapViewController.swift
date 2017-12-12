@@ -9,7 +9,7 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBOutlet weak var mapView: MKMapView!
     var persistanceManager: PersistanceManager?
@@ -17,15 +17,45 @@ class MapViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        mapView.delegate = self
+        
         persistanceManager = PersistanceManager.sharedInstance
         let locations = persistanceManager?.fetchLocations()
         let favorites = persistanceManager?.fetchFavorites()
         
-        for fav in favorites! {
+        putMarkers(locations: locations!,favorites:favorites!)
+        // Do any additional setup after loading the view.
+    }
+    
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "SummaryViewController") as! SummaryViewController
+        
+        nextViewController.heading = (view.annotation?.title)!
+        
+        let dataDecoded : Data = Data(base64Encoded: ((view.annotation?.subtitle)!)!, options: .ignoreUnknownCharacters)!
+        let decodedimage = UIImage(data: dataDecoded)
+        
+        nextViewController.image = decodedimage
+        navigationController?.pushViewController(nextViewController, animated: true)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        let locations = persistanceManager?.fetchLocations()
+        let favorites = persistanceManager?.fetchFavorites()
+        putMarkers(locations:locations!, favorites:favorites!)
+        self.mapView.reloadInputViews()
+    }
+    
+    
+    func putMarkers(locations: [LocationModel], favorites: Set<DescriptionModel>) {
+        for fav in favorites {
             
             let label = fav.favoritelabel
             
-            for loc in locations ?? [LocationModel]() {
+            for loc in locations {
                 
                 let responses = loc.responseModel
                 for response in responses {
@@ -40,7 +70,8 @@ class MapViewController: UIViewController {
                         
                         let annotation = MKPointAnnotation()
                         annotation.coordinate = location
-                        //annotation.title = "Chetan Mahajan"
+                        annotation.title = label
+                        annotation.subtitle = loc.image
                         mapView.addAnnotation(annotation)
                     }
                 }
@@ -48,14 +79,7 @@ class MapViewController: UIViewController {
             }
             
         }
-        // Do any additional setup after loading the view.
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     
     //TODO display the description if the user selects the annotations.
     

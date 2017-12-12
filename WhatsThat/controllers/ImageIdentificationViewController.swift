@@ -13,7 +13,7 @@ import MBProgressHUD
 
 class ImageIdentificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
-    var labels: [ResponseModel] = []
+    var labels: [GoogleVisionResultObject] = []
     var googleVisionAPIManager: GoogleVisionAPIManager?
     var newMedia: Bool?
     var locationFinder: LocationFinder?
@@ -161,7 +161,7 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
 
 
 extension ImageIdentificationViewController: GoogleVisionAPIManagerDelegate{
-    func labelsReceived(labels: [ResponseModel]) {
+    func labelsReceived(labels: [GoogleVisionResultObject]) {
         self.labels = labels
         
         //update tableview data on the main (UI) thread

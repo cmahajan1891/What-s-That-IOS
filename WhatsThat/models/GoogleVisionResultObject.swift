@@ -9,7 +9,7 @@
 import Foundation
 
 
-class ResponseModel: NSObject {
+class GoogleVisionResultObject: NSObject {
     
     let mid : String
     let midKey = "mid"
@@ -31,7 +31,7 @@ class ResponseModel: NSObject {
     }
 }
 
-extension ResponseModel: NSCoding {
+extension GoogleVisionResultObject: NSCoding {
     func encode(with aCoder: NSCoder) {
         aCoder.encode(mid, forKey: midKey)
         aCoder.encode(descr, forKey: descriptionKey)
@@ -40,8 +40,8 @@ extension ResponseModel: NSCoding {
     
 }
 
-extension ResponseModel {
-    static func == (lhs: ResponseModel, rhs: ResponseModel) -> Bool {
+extension GoogleVisionResultObject {
+    static func == (lhs: GoogleVisionResultObject, rhs: GoogleVisionResultObject) -> Bool {
         return lhs.descr == rhs.descr && lhs.mid == rhs.mid && lhs.score == rhs.score
     }
 }
