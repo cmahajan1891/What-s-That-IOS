@@ -17,22 +17,14 @@ class SummaryViewController: UIViewController, UITextViewDelegate, SFSafariViewC
     
     var heading: String?
     var urlString:String?
+    var image: UIImage?
     var delegate: SFSafariViewControllerDelegate?
     var persistance: PersistanceManager?
     var wikipediaAPIManager: WikipediaAPIManager?
-    //    var navController: UINavigationController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        //        navController = self.navigationController
-        //        let prevController = navController?.previousViewController()
-        //        if prevController != nil {
-        //            if prevController?.title == "Favorites" {
-        //                self.navigationItem.rightBarButtonItems?[0].title = "UnFavorite"
-        //            }
-        //        }
         summaryLabel.text = heading ?? ""
         
         let wikipediaAPIManager = WikipediaAPIManager()
@@ -45,43 +37,41 @@ class SummaryViewController: UIViewController, UITextViewDelegate, SFSafariViewC
         
     }
     
+    
+    
     func textViewDidChange(_ textView: UITextView) {
         self.descriptionText.autocorrectionType = UITextAutocorrectionType.yes
         self.descriptionText.spellCheckingType = UITextSpellCheckingType.yes
         self.descriptionText.sizeToFit()
     }
     
+    @IBAction func shareButtonPressed(_ sender: UIButton) {
+        let description = self.descriptionText.text
+        
+        let textToShare = "Check out a small description of: \(String(describing: self.heading))! \n \(String(describing: description))"
+        
+        let activityViewController = UIActivityViewController(activityItems: [textToShare], applicationActivities: nil)
+        
+        present(activityViewController, animated: true, completion: nil)
+        
+    }
+    
+    
     @IBAction func saveFavorites(_ sender: UIBarButtonItem) {
         
-        //        if self.navigationItem.rightBarButtonItems?[0].title == "UnFavorite" {
-        //            persistance?.removeFavorites(description: self.descriptionText.text, favLabel: self.heading!)
-        //
-        //            let favCtr = self.navigationController?.previousViewController() as! FavoriteTableViewController
-        //            favCtr.tableView.reloadData()
-        //        }
-        //        else {
+        let message = persistance?.saveFavorites(description: self.descriptionText.text, favLabel: self.heading!, image: self.image!)
         
-        
-        let message = persistance?.saveFavorites(description: self.descriptionText.text, favLabel: self.heading!)
         let alertController = UIAlertController(title: "Success.", message: message, preferredStyle: .alert)
         let okAction: UIAlertAction?
         okAction = UIAlertAction(title: "OK",
                                  
                                  style: .default, handler: { (action) in
-//                                    self.navigationController?.popToViewController((self.navigationController?.previousViewController())!, animated: true)
                                     
         })
         
         alertController.addAction(okAction!)
         self.present(alertController, animated: true,
                      completion: nil)
-        
-        
-        
-        //        let favCtr = self.navigationController?.previousViewController() as! FavoriteTableViewController
-        //        favCtr.tableView.reloadData()
-        
-        //        }
         
     }
     
@@ -135,3 +125,5 @@ extension SummaryViewController : WikiDescriptionDelegate {
     }
     
 }
+
+

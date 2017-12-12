@@ -21,15 +21,15 @@ public class Features: Codable {
      
      - returns: Array of Features Instances.
      */
-        public class func modelsFromDictionaryArray(array:NSArray) -> [Features]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [Features]
+    {
+        var models:[Features] = []
+        for item in array
         {
-            var models:[Features] = []
-            for item in array
-            {
-                models.append(Features(dictionary: item as! NSDictionary)!)
-            }
-            return models
+            models.append(Features(dictionary: item as! NSDictionary)!)
         }
+        return models
+    }
     
     /**
      Constructs the object based on the given dictionary.
@@ -41,25 +41,25 @@ public class Features: Codable {
      
      - returns: Features Instance.
      */
-        required public init?(dictionary: NSDictionary) {
-            type = dictionary["type"] as? String
-            maxResults = dictionary["maxResults"] as? Int
-        }
+    required public init?(dictionary: NSDictionary) {
+        type = dictionary["type"] as? String
+        maxResults = dictionary["maxResults"] as? Int
+    }
     
     /**
      Returns the dictionary representation for the current instance.
      
      - returns: NSDictionary.
      */
-        public func dictionaryRepresentation() -> NSDictionary {
-    
-            let dictionary = NSMutableDictionary()
-    
-            dictionary.setValue(self.type, forKey: "type")
-            dictionary.setValue(self.maxResults, forKey: "maxResults")
-    
-            return dictionary
-        }
+    public func dictionaryRepresentation() -> NSDictionary {
+        
+        let dictionary = NSMutableDictionary()
+        
+        dictionary.setValue(self.type, forKey: "type")
+        dictionary.setValue(self.maxResults, forKey: "maxResults")
+        
+        return dictionary
+    }
     
 }
 

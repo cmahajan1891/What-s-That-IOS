@@ -44,7 +44,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oup-DT-rwJ">
-                                <rect key="frame" x="126.33333333333331" y="410" width="162" height="44"/>
+                                <rect key="frame" x="126" y="410" width="162" height="44"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <state key="normal" title="View Favorites"/>
                                 <connections>
@@ -104,7 +104,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPk-bg-ozU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2626" y="-500"/>
+            <point key="canvasLocation" x="3242" y="-501"/>
         </scene>
         <!--Favorites-->
         <scene sceneID="NBI-BZ-L5D">
@@ -115,25 +115,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="favoritesLabel" id="tPT-8P-mzG" customClass="FavoritesLabelTableViewCell" customModule="WhatsThat" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="favoriteLabel" rowHeight="90" id="tPT-8P-mzG" customClass="FavoritesLabelTableViewCell" customModule="WhatsThat" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="28" width="414" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tPT-8P-mzG" id="phm-tU-g9N">
-                                    <rect key="frame" x="0.0" y="0.0" width="376" height="43.666666666666664"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="376" height="89.666666666666671"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIq-Zy-l4E">
-                                            <rect key="frame" x="0.0" y="11" width="414" height="21"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mPz-BI-f8r">
+                                            <rect key="frame" x="0.0" y="0.0" width="99" height="90"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <accessibility key="accessibilityConfiguration" identifier="FavoritesLabel"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rIq-Zy-l4E">
+                                            <rect key="frame" x="107" y="11" width="269" height="24"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <accessibility key="accessibilityConfiguration" identifier="favoriteLabel"/>
                                             <fontDescription key="fontDescription" style="UICTFontTextStyleTitle3"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <accessibility key="accessibilityConfiguration" identifier="favoriteLabel"/>
                                 <connections>
-                                    <outlet property="FavoriteLabel" destination="rIq-Zy-l4E" id="9Y7-8L-NbD"/>
+                                    <outlet property="favoriteLabel" destination="rIq-Zy-l4E" id="FQd-en-aqQ"/>
+                                    <outlet property="imageLabel" destination="mPz-BI-f8r" id="Ygp-nB-NnQ"/>
                                     <segue destination="iAf-wg-dK6" kind="show" identifier="fromFavoritesSegue" id="Rvo-ga-lbG"/>
                                 </connections>
                             </tableViewCell>
@@ -143,10 +149,46 @@
                             <outlet property="delegate" destination="72t-3S-v15" id="3iG-wp-zYy"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Favorites" id="ynf-ML-p8N">
+                        <barButtonItem key="rightBarButtonItem" title="Show on Map" id="UlJ-xR-Xdy">
+                            <connections>
+                                <segue destination="MSG-uG-HMI" kind="show" id="dyY-eZ-hjD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Dw1-JO-9YN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1035" y="331"/>
+            <point key="canvasLocation" x="1034.7826086956522" y="330.97826086956525"/>
+        </scene>
+        <!--Map View Controller-->
+        <scene sceneID="mSu-Bz-5wX">
+            <objects>
+                <viewController id="MSG-uG-HMI" customClass="MapViewController" customModule="WhatsThat" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b93-pz-sYh">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="1Wg-QT-DZN">
+                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                            </mapView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="1Wg-QT-DZN" firstAttribute="leading" secondItem="b93-pz-sYh" secondAttribute="leading" id="Ttu-dn-OQT"/>
+                            <constraint firstItem="1Wg-QT-DZN" firstAttribute="top" secondItem="jvK-i2-jPp" secondAttribute="top" id="ZWm-q2-W6x"/>
+                            <constraint firstItem="1Wg-QT-DZN" firstAttribute="bottom" secondItem="jvK-i2-jPp" secondAttribute="bottom" id="kMy-zl-jDo"/>
+                            <constraint firstAttribute="trailing" secondItem="1Wg-QT-DZN" secondAttribute="trailing" id="kje-qH-RYT"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="jvK-i2-jPp"/>
+                    </view>
+                    <connections>
+                        <outlet property="mapView" destination="1Wg-QT-DZN" id="rk3-35-fHb"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n2m-BZ-59t" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2624.6376811594205" y="330.97826086956525"/>
         </scene>
         <!--Image Identification View Controller-->
         <scene sceneID="mIq-IG-FhN">
@@ -226,14 +268,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="bottomRight" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3uO-OD-gZd">
-                                <rect key="frame" x="289.33333333333331" y="700" width="124.66666666666669" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="289.66666666666669" y="700" width="124.33333333333331" height="36"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Share"/>
+                                <connections>
+                                    <action selector="shareButtonPressed:" destination="iAf-wg-dK6" eventType="touchUpInside" id="f4x-XR-FmA"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="bottomLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UzG-pm-moy">
                                 <rect key="frame" x="0.0" y="700" width="125" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Wiki"/>
                                 <connections>
@@ -254,8 +299,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="bottom" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oJQ-YD-Opo">
-                                <rect key="frame" x="145" y="700" width="124.66666666666669" height="36"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <rect key="frame" x="145" y="700" width="125" height="36"/>
+                                <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <state key="normal" title="Tweets"/>
                                 <connections>
@@ -300,7 +345,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qPR-d3-OsN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1742" y="-501"/>
+            <point key="canvasLocation" x="2230" y="-501"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

@@ -9,5 +9,6 @@
 import UIKit
 
 class FavoritesLabelTableViewCell: UITableViewCell {
-    @IBOutlet weak var FavoriteLabel: UILabel!
+    @IBOutlet weak var favoriteLabel: UILabel!
+    @IBOutlet weak var imageLabel: UIImageView!
 }

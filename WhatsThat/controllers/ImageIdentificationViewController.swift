@@ -10,11 +10,14 @@ import UIKit
 import MobileCoreServices
 import MBProgressHUD
 
+
 class ImageIdentificationViewController: UIViewController, UITableViewDataSource, UITableViewDelegate , UIImagePickerControllerDelegate, UINavigationControllerDelegate   {
     
     var labels: [ResponseModel] = []
     var googleVisionAPIManager: GoogleVisionAPIManager?
     var newMedia: Bool?
+    var locationFinder: LocationFinder?
+    var persistance: PersistanceManager?
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var imageView: UIImageView!
@@ -24,16 +27,19 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
         
         let imagePicker = UIImagePickerController()
         
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        
-        
         //Initializing Black Box Classes
         googleVisionAPIManager = GoogleVisionAPIManager()
+        
         
         //Assigning the delegates
         imagePicker.delegate = self
         googleVisionAPIManager?.delegate = self
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        
+        
+        persistance = PersistanceManager.sharedInstance
+        
         
         if UIImagePickerController.isSourceTypeAvailable(
             UIImagePickerControllerSourceType.savedPhotosAlbum) && newMedia == false {
@@ -59,6 +65,10 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
         
     }
     
+    func findLocation() {
+        self.locationFinder?.findLocation()
+    }
+    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         // First dismiss the image picker controller and then pop out to the root view controller;
         self.dismiss(animated: true, completion: nil)
@@ -77,13 +87,17 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
                 as! UIImage
             
             if imageView != nil {
-                MBProgressHUD.showAdded(to: tableView, animated: true)
                 imageView.image = image
                 
-                if googleVisionAPIManager != nil {
-                    let imageBase64: String = googleVisionAPIManager!.base64EncodeImage(image)
-                    googleVisionAPIManager!.createRequest(with: imageBase64)
+                MBProgressHUD.showAdded(to: self.tableView, animated: true)
+                if self.googleVisionAPIManager != nil {
+                    let image = imageView.image
+                    
+                    let imageBase64: String = self.googleVisionAPIManager!.base64EncodeImage(image!)
+                    self.googleVisionAPIManager!.createRequest(with: imageBase64)
+                    
                 }
+                
                 
             }
             
@@ -97,6 +111,7 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
         }
         
     }
+    
     
     
     
@@ -129,7 +144,7 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
         
         // Configure the cell...
         let label = labels[indexPath.row]
-        cell.identificationLabel.text = label.description?.capitalized
+        cell.identificationLabel.text = label.descr.capitalized
         
         return cell
     }
@@ -138,10 +153,12 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "viewDescriptionSegue" {
             let destinationViewController = segue.destination as? SummaryViewController
-            destinationViewController?.heading = labels[(self.tableView.indexPathForSelectedRow?.row)!].description?.capitalized
+            destinationViewController?.heading = labels[(self.tableView.indexPathForSelectedRow?.row)!].descr.capitalized
+            destinationViewController?.image = self.imageView.image!
         }
     }
 }
+
 
 extension ImageIdentificationViewController: GoogleVisionAPIManagerDelegate{
     func labelsReceived(labels: [ResponseModel]) {
@@ -151,7 +168,11 @@ extension ImageIdentificationViewController: GoogleVisionAPIManagerDelegate{
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.tableView, animated: true)
             self.tableView.reloadData()
+            self.locationFinder = LocationFinder()
+            self.locationFinder?.delegate = self
+            self.locationFinder?.findLocation()
         }
+        
     }
     
     func labelsNotReceived(reason: GoogleVisionAPIManager.FailureReason) {
@@ -197,4 +218,33 @@ extension ImageIdentificationViewController: GoogleVisionAPIManagerDelegate{
         
     }
 }
+
+
+//adhere to the LocationFinderDelegate protocol
+extension ImageIdentificationViewController: LocationFinderDelegate {
+    func locationFound(latitude: Double, longitude: Double) {
+        let imageBase64: String = self.googleVisionAPIManager!.base64EncodeImage((self.imageView?.image)!)
+        if imageView?.image != nil {
+            
+            let labels = self.labels
+            
+            let locModel = LocationModel(latitude: latitude, longitude: longitude, responseModel: labels, image: imageBase64)
+            
+            self.persistance?.saveLocation(locModel: locModel)
+            
+        }
+        
+    }
+    
+    func locationNotFound(reason: LocationFinder.FailureReason) {
+        DispatchQueue.main.async {
+            MBProgressHUD.hide(for: self.view, animated: true)
+            //TODO pop up an alert controller with message
+            print(reason.rawValue)
+            
+        }
+    }
+}
+
+
 

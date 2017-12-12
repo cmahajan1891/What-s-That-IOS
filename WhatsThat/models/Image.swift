@@ -21,15 +21,15 @@ public class Image: Codable {
      
      - returns: Array of Image Instances.
      */
-        public class func modelsFromDictionaryArray(array:NSArray) -> [Image]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [Image]
+    {
+        var models:[Image] = []
+        for item in array
         {
-            var models:[Image] = []
-            for item in array
-            {
-                models.append(Image(dictionary: item as! NSDictionary)!)
-            }
-            return models
+            models.append(Image(dictionary: item as! NSDictionary)!)
         }
+        return models
+    }
     
     /**
      Constructs the object based on the given dictionary.
@@ -41,22 +41,22 @@ public class Image: Codable {
      
      - returns: Image Instance.
      */
-        required public init?(dictionary: NSDictionary) {
-            content = dictionary["content"] as? String
-        }
+    required public init?(dictionary: NSDictionary) {
+        content = dictionary["content"] as? String
+    }
     
     /**
      Returns the dictionary representation for the current instance.
      
      - returns: NSDictionary.
      */
-        public func dictionaryRepresentation() -> NSDictionary {
-    
-            let dictionary = NSMutableDictionary()
-    
-            dictionary.setValue(self.content, forKey: "content")
-    
-            return dictionary
-        }
+    public func dictionaryRepresentation() -> NSDictionary {
+        
+        let dictionary = NSMutableDictionary()
+        
+        dictionary.setValue(self.content, forKey: "content")
+        
+        return dictionary
+    }
     
 }

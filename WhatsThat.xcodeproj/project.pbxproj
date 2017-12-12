@@ -22,7 +22,6 @@
 		913FC6F41FD6A08D00B49E06 /* PersistanceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FC6F31FD6A08D00B49E06 /* PersistanceManager.swift */; };
 		913FC6F61FD6A44100B49E06 /* FavoritesLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913FC6F51FD6A44100B49E06 /* FavoritesLabelTableViewCell.swift */; };
 		9141BD751FC549930007DE6C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9141BD741FC549920007DE6C /* Main.storyboard */; };
-		915E2AFE1FDE1E71004DAF62 /* UINavigationControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 915E2AFD1FDE1E71004DAF62 /* UINavigationControllerExtension.swift */; };
 		9170A4A71FC5479B00DF4341 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170A4A61FC5479B00DF4341 /* AppDelegate.swift */; };
 		9170A4A91FC5479B00DF4341 /* InitialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9170A4A81FC5479B00DF4341 /* InitialViewController.swift */; };
 		9170A4AE1FC5479B00DF4341 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9170A4AD1FC5479B00DF4341 /* Assets.xcassets */; };
@@ -30,10 +29,11 @@
 		91866DC71FC65CB600FDE1F5 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91866DC61FC65CB600FDE1F5 /* ResponseModel.swift */; };
 		918CF1391FCB626600929B26 /* SummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918CF1381FCB626600929B26 /* SummaryViewController.swift */; };
 		918CF13B1FCB691100929B26 /* WikipediaAPIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918CF13A1FCB691100929B26 /* WikipediaAPIManager.swift */; };
-		918CF13D1FCB698100929B26 /* WikipediaResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918CF13C1FCB698100929B26 /* WikipediaResultModel.swift */; };
 		91A8893A1FC5CEF5009D37F9 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91A8893B1FC5CEF5009D37F9 /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		91BDBA071FDE62830090CCF9 /* LocationFinder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BDBA061FDE62830090CCF9 /* LocationFinder.swift */; };
+		91BDBA091FDF0B840090CCF9 /* LocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BDBA081FDF0B840090CCF9 /* LocationModel.swift */; };
+		91BDBA0B1FDF34760090CCF9 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91BDBA0A1FDF34760090CCF9 /* MapViewController.swift */; };
 		91E629B41FD5B53B00590BE2 /* Twitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91E629B31FD5B52C00590BE2 /* Twitter.framework */; };
-		91E629BB1FD5C28900590BE2 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 91E629BA1FD5C28900590BE2 /* Default-568h@2x.png */; };
 		91E629BE1FD5C9B600590BE2 /* TwittersTimelineTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91E629BD1FD5C9B600590BE2 /* TwittersTimelineTableViewController.swift */; };
 		D0E0CA5C21D66C32348215D7 /* Pods_WhatsThat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DF5CDC3242023E7257E4E8A1 /* Pods_WhatsThat.framework */; };
 /* End PBXBuildFile section */
@@ -55,7 +55,6 @@
 		913FC6F31FD6A08D00B49E06 /* PersistanceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistanceManager.swift; sourceTree = "<group>"; };
 		913FC6F51FD6A44100B49E06 /* FavoritesLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesLabelTableViewCell.swift; sourceTree = "<group>"; };
 		9141BD741FC549920007DE6C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		915E2AFD1FDE1E71004DAF62 /* UINavigationControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UINavigationControllerExtension.swift; sourceTree = "<group>"; };
 		9170A4A31FC5479B00DF4341 /* WhatsThat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatsThat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9170A4A61FC5479B00DF4341 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9170A4A81FC5479B00DF4341 /* InitialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InitialViewController.swift; sourceTree = "<group>"; };
@@ -65,11 +64,11 @@
 		91866DC61FC65CB600FDE1F5 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		918CF1381FCB626600929B26 /* SummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryViewController.swift; sourceTree = "<group>"; };
 		918CF13A1FCB691100929B26 /* WikipediaAPIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WikipediaAPIManager.swift; sourceTree = "<group>"; };
-		918CF13C1FCB698100929B26 /* WikipediaResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = WikipediaResultModel.swift; path = /Users/chetanmahajan/Documents/cmahajan/Desktop/ios/WhatsThat/WhatsThat/models/WikipediaResultModel.swift; sourceTree = "<absolute>"; };
 		91A8893B1FC5CEF5009D37F9 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		91BDBA061FDE62830090CCF9 /* LocationFinder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFinder.swift; sourceTree = "<group>"; };
+		91BDBA081FDF0B840090CCF9 /* LocationModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationModel.swift; sourceTree = "<group>"; };
+		91BDBA0A1FDF34760090CCF9 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		91E629B31FD5B52C00590BE2 /* Twitter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Twitter.framework; path = System/Library/Frameworks/Twitter.framework; sourceTree = SDKROOT; };
-		91E629BA1FD5C28900590BE2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		91E629BC1FD5C2FF00590BE2 /* WhatsThat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "WhatsThat-Bridging-Header.h"; sourceTree = "<group>"; };
 		91E629BD1FD5C9B600590BE2 /* TwittersTimelineTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwittersTimelineTableViewController.swift; sourceTree = "<group>"; };
 		A4A9CB4FB23DF55527F31060 /* Pods-WhatsThat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WhatsThat.release.xcconfig"; path = "Pods/Target Support Files/Pods-WhatsThat/Pods-WhatsThat.release.xcconfig"; sourceTree = "<group>"; };
 		DF5CDC3242023E7257E4E8A1 /* Pods_WhatsThat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_WhatsThat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,8 +108,8 @@
 				912F12631FC6581300B694F1 /* Responses.swift */,
 				912F12651FC6583C00B694F1 /* LabelAnnotations.swift */,
 				91866DC61FC65CB600FDE1F5 /* ResponseModel.swift */,
-				918CF13C1FCB698100929B26 /* WikipediaResultModel.swift */,
 				910E599F1FD643370042E5BB /* DescriptionModel.swift */,
+				91BDBA081FDF0B840090CCF9 /* LocationModel.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -119,9 +118,9 @@
 			isa = PBXGroup;
 			children = (
 				9124051D1FC5C42F00763E69 /* GoogleVisionAPIManager.swift */,
+				91BDBA061FDE62830090CCF9 /* LocationFinder.swift */,
 				918CF13A1FCB691100929B26 /* WikipediaAPIManager.swift */,
 				913FC6F31FD6A08D00B49E06 /* PersistanceManager.swift */,
-				915E2AFD1FDE1E71004DAF62 /* UINavigationControllerExtension.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -136,6 +135,7 @@
 				91E629BD1FD5C9B600590BE2 /* TwittersTimelineTableViewController.swift */,
 				913FC6F11FD69DCB00B49E06 /* FavoriteTableViewController.swift */,
 				913FC6F51FD6A44100B49E06 /* FavoritesLabelTableViewCell.swift */,
+				91BDBA0A1FDF34760090CCF9 /* MapViewController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -160,7 +160,6 @@
 		9170A49A1FC5479B00DF4341 = {
 			isa = PBXGroup;
 			children = (
-				91E629BC1FD5C2FF00590BE2 /* WhatsThat-Bridging-Header.h */,
 				9170A4A51FC5479B00DF4341 /* WhatsThat */,
 				9170A4A41FC5479B00DF4341 /* Products */,
 				7CA351385041BEF1E5C8AE60 /* Pods */,
@@ -185,7 +184,6 @@
 				912F12481FC5D85000B694F1 /* utils */,
 				9124051C1FC5C3E600763E69 /* models */,
 				9170A4AD1FC5479B00DF4341 /* Assets.xcassets */,
-				91E629BA1FD5C28900590BE2 /* Default-568h@2x.png */,
 				9170A4B21FC5479B00DF4341 /* Info.plist */,
 			);
 			path = WhatsThat;
@@ -264,7 +262,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9170A4B11FC5479B00DF4341 /* LaunchScreen.storyboard in Resources */,
-				91E629BB1FD5C28900590BE2 /* Default-568h@2x.png in Resources */,
 				9170A4AE1FC5479B00DF4341 /* Assets.xcassets in Resources */,
 				9141BD751FC549930007DE6C /* Main.storyboard in Resources */,
 			);
@@ -344,7 +341,8 @@
 				912F12561FC6193100B694F1 /* Image.swift in Sources */,
 				913FC6F21FD69DCB00B49E06 /* FavoriteTableViewController.swift in Sources */,
 				918CF1391FCB626600929B26 /* SummaryViewController.swift in Sources */,
-				915E2AFE1FDE1E71004DAF62 /* UINavigationControllerExtension.swift in Sources */,
+				91BDBA0B1FDF34760090CCF9 /* MapViewController.swift in Sources */,
+				91BDBA071FDE62830090CCF9 /* LocationFinder.swift in Sources */,
 				912F12581FC619C800B694F1 /* Requests.swift in Sources */,
 				913FC6F61FD6A44100B49E06 /* FavoritesLabelTableViewCell.swift in Sources */,
 				9170A4A71FC5479B00DF4341 /* AppDelegate.swift in Sources */,
@@ -352,9 +350,9 @@
 				918CF13B1FCB691100929B26 /* WikipediaAPIManager.swift in Sources */,
 				912F12621FC657E500B694F1 /* GoogleVisionResponseModel.swift in Sources */,
 				912F12661FC6583C00B694F1 /* LabelAnnotations.swift in Sources */,
+				91BDBA091FDF0B840090CCF9 /* LocationModel.swift in Sources */,
 				911AFC901FC7DDB500180EC7 /* IdentificationLabelViewCell.swift in Sources */,
 				913FC6F41FD6A08D00B49E06 /* PersistanceManager.swift in Sources */,
-				918CF13D1FCB698100929B26 /* WikipediaResultModel.swift in Sources */,
 				91E629BE1FD5C9B600590BE2 /* TwittersTimelineTableViewController.swift in Sources */,
 				912F12641FC6581300B694F1 /* Responses.swift in Sources */,
 				91866DC71FC65CB600FDE1F5 /* ResponseModel.swift in Sources */,
@@ -491,7 +489,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PN67A5Z3M2;
 				INFOPLIST_FILE = WhatsThat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = myapp.WhatsThat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -510,7 +508,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = PN67A5Z3M2;
 				INFOPLIST_FILE = WhatsThat/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = myapp.WhatsThat;
 				PRODUCT_NAME = "$(TARGET_NAME)";

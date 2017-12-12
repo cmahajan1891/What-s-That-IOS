@@ -7,28 +7,41 @@
 //
 
 import Foundation
-struct ResponseModel : Codable {
+
+
+class ResponseModel: NSObject {
     
-    let mid : String?
-    let description : String?
-    let score : Double?
+    let mid : String
+    let midKey = "mid"
+    let descr : String
+    let descriptionKey = "descr"
+    let score : Double
+    let scoreKey = "score"
     
-    
-    enum CodingKeys: String, CodingKey {
-        
-        case mid = "mid"
-        case description = "description"
-        case score = "score"
-        
+    init(mid: String, description: String, score: Double) {
+        self.mid = mid
+        self.descr = description
+        self.score = score
     }
     
-    init(middle: String, desc: String, sc: Double)  {
-        
-        mid = middle
-        description = desc
-        score = sc
-        
-        
+    required init?(coder aDecoder: NSCoder) {
+        mid = aDecoder.decodeObject(forKey: midKey) as! String
+        descr = aDecoder.decodeObject(forKey: descriptionKey) as! String
+        score = aDecoder.decodeDouble(forKey: scoreKey) 
+    }
+}
+
+extension ResponseModel: NSCoding {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(mid, forKey: midKey)
+        aCoder.encode(descr, forKey: descriptionKey)
+        aCoder.encode(score, forKey: scoreKey)
     }
     
+}
+
+extension ResponseModel {
+    static func == (lhs: ResponseModel, rhs: ResponseModel) -> Bool {
+        return lhs.descr == rhs.descr && lhs.mid == rhs.mid && lhs.score == rhs.score
+    }
 }

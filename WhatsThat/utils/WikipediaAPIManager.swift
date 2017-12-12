@@ -35,9 +35,6 @@ class WikipediaAPIManager {
             URLQueryItem(name: "prop", value: "extracts"),
             URLQueryItem(name: "format", value: "json"),
             URLQueryItem(name: "exchars", value: "500")
-            //URLQueryItem(name: "exintro", value: "explaintext")
-            //URLQueryItem(name: "titles", value: "iPhone")
-            
         ]
         
         let url = urlComponents.url!

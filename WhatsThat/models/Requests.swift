@@ -23,15 +23,15 @@ public class Requests: Codable {
      
      - returns: Array of Requests Instances.
      */
-        public class func modelsFromDictionaryArray(array:NSArray) -> [Requests]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [Requests]
+    {
+        var models:[Requests] = []
+        for item in array
         {
-            var models:[Requests] = []
-            for item in array
-            {
-                models.append(Requests(dictionary: item as! NSDictionary)!)
-            }
-            return models
+            models.append(Requests(dictionary: item as! NSDictionary)!)
         }
+        return models
+    }
     
     /**
      Constructs the object based on the given dictionary.
@@ -43,31 +43,31 @@ public class Requests: Codable {
      
      - returns: Requests Instance.
      */
-        required public init?(dictionary: NSDictionary) {
-    
-            if (dictionary["image"] != nil) { image = Image(dictionary: dictionary["image"] as! NSDictionary) }
-            if (dictionary["features"] != nil) { features = Features.modelsFromDictionaryArray(array: dictionary["features"] as! NSArray)}
-            
-        }
+    required public init?(dictionary: NSDictionary) {
+        
+        if (dictionary["image"] != nil) { image = Image(dictionary: dictionary["image"] as! NSDictionary) }
+        if (dictionary["features"] != nil) { features = Features.modelsFromDictionaryArray(array: dictionary["features"] as! NSArray)}
+        
+    }
     
     /**
      Returns the dictionary representation for the current instance.
      
      - returns: NSDictionary.
      */
-        public func dictionaryRepresentation() -> NSDictionary {
-    
-            let dictionary = NSMutableDictionary()
-    
-            dictionary.setValue(self.image?.dictionaryRepresentation(), forKey: "image")
-            var feats = [NSDictionary]()
-            for feature in features! {
-                feats.append(feature.dictionaryRepresentation())
-            }
-            
-            dictionary.setValue(feats, forKey: "features")
-    
-            return dictionary
+    public func dictionaryRepresentation() -> NSDictionary {
+        
+        let dictionary = NSMutableDictionary()
+        
+        dictionary.setValue(self.image?.dictionaryRepresentation(), forKey: "image")
+        var feats = [NSDictionary]()
+        for feature in features! {
+            feats.append(feature.dictionaryRepresentation())
         }
+        
+        dictionary.setValue(feats, forKey: "features")
+        
+        return dictionary
+    }
     
 }

@@ -20,15 +20,15 @@ public class GoogleVisionRequestModel: Codable {
      
      - returns: Array of Json4Swift_Base Instances.
      */
-        public class func modelsFromDictionaryArray(array:NSArray) -> [GoogleVisionRequestModel]
+    public class func modelsFromDictionaryArray(array:NSArray) -> [GoogleVisionRequestModel]
+    {
+        var models:[GoogleVisionRequestModel] = []
+        for item in array
         {
-            var models:[GoogleVisionRequestModel] = []
-            for item in array
-            {
-                models.append(GoogleVisionRequestModel(dictionary: item as! NSDictionary)!)
-            }
-            return models
+            models.append(GoogleVisionRequestModel(dictionary: item as! NSDictionary)!)
         }
+        return models
+    }
     
     /**
      Constructs the object based on the given dictionary.
@@ -40,10 +40,10 @@ public class GoogleVisionRequestModel: Codable {
      
      - returns: Json4Swift_Base Instance.
      */
-        required public init?(dictionary: NSDictionary) {
-    
-            if (dictionary["requests"] != nil) { requests = Requests.modelsFromDictionaryArray(array: dictionary["requests"] as! NSArray) }
-        }
+    required public init?(dictionary: NSDictionary) {
+        
+        if (dictionary["requests"] != nil) { requests = Requests.modelsFromDictionaryArray(array: dictionary["requests"] as! NSArray) }
+    }
     
     
     /**
@@ -51,11 +51,11 @@ public class GoogleVisionRequestModel: Codable {
      
      - returns: NSDictionary.
      */
-        public func dictionaryRepresentation() -> NSDictionary {
-    
-            let dictionary = NSMutableDictionary()
-    
-            return dictionary
-        }
+    public func dictionaryRepresentation() -> NSDictionary {
+        
+        let dictionary = NSMutableDictionary()
+        
+        return dictionary
+    }
     
 }

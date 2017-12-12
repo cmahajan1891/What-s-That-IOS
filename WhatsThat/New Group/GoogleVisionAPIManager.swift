@@ -12,8 +12,10 @@ import UIKit
 
 protocol GoogleVisionAPIManagerDelegate {
     func labelsReceived(labels: [ResponseModel])
+    
     func labelsNotReceived(reason: GoogleVisionAPIManager.FailureReason)
 }
+
 
 class GoogleVisionAPIManager {
     
@@ -21,6 +23,7 @@ class GoogleVisionAPIManager {
         case networkRequestFailed = "Your Request Failed, Please Try again."
         case badJSONResponse = "Bad JSON Response."
     }
+    
     
     var googleAPIKey = "AIzaSyCwT_7AmDe9BYsqsiYDau5nGWS0XgoD3Yk"
     var googleURL: URL {
@@ -57,6 +60,8 @@ class GoogleVisionAPIManager {
     func createRequest(with imageBase64: String) {
         // Create our request URL
         
+        
+        
         var request = URLRequest(url: googleURL)
         request.httpMethod = "POST"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -90,6 +95,10 @@ class GoogleVisionAPIManager {
         DispatchQueue.global().async { self.runRequestOnBackgroundThread(request) }
     }
     
+    
+    
+    
+    
     func runRequestOnBackgroundThread(_ request: URLRequest) {
         // run the request
         
@@ -114,7 +123,7 @@ class GoogleVisionAPIManager {
                         let desc = annotation.description
                         let score = annotation.score
                         
-                        labels.append(ResponseModel(middle: mid!, desc: desc!,sc: score!))
+                        labels.append(ResponseModel(mid: mid!, description: desc!,score: score!))
                     }
                     
                     self.delegate?.labelsReceived(labels: labels)
