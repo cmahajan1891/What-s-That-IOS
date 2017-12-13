@@ -40,7 +40,7 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
         
         persistance = PersistanceManager.sharedInstance
         
-        
+        //setting the source as photo gallery or camera
         if UIImagePickerController.isSourceTypeAvailable(
             UIImagePickerControllerSourceType.savedPhotosAlbum) && newMedia == false {
             
@@ -86,19 +86,16 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
             let image = info[UIImagePickerControllerOriginalImage]
                 as! UIImage
             
-            if imageView != nil {
+            if let imageView = imageView {
                 imageView.image = image
-                
+                //Show progress bar
                 MBProgressHUD.showAdded(to: self.tableView, animated: true)
                 if self.googleVisionAPIManager != nil {
                     let image = imageView.image
-                    
-                    let imageBase64: String = self.googleVisionAPIManager!.base64EncodeImage(image!)
-                    self.googleVisionAPIManager!.createRequest(with: imageBase64)
-                    
+                    //send request to retreive labels.
+                    let imageBase64: String = (self.googleVisionAPIManager?.base64EncodeImage(image!))!
+                    self.googleVisionAPIManager?.createRequest(with: imageBase64)
                 }
-                
-                
             }
             
             if (newMedia == true) {
@@ -111,9 +108,6 @@ class ImageIdentificationViewController: UIViewController, UITableViewDataSource
         }
         
     }
-    
-    
-    
     
     @objc func image(image: UIImage, didFinishSavingWithError error: NSErrorPointer, contextInfo:UnsafeRawPointer) {
         
@@ -223,7 +217,7 @@ extension ImageIdentificationViewController: GoogleVisionAPIManagerDelegate{
 //adhere to the LocationFinderDelegate protocol
 extension ImageIdentificationViewController: LocationFinderDelegate {
     func locationFound(latitude: Double, longitude: Double) {
-        let imageBase64: String = self.googleVisionAPIManager!.base64EncodeImage((self.imageView?.image)!)
+        let imageBase64: String = (self.googleVisionAPIManager?.base64EncodeImage((self.imageView?.image)!))!
         if imageView?.image != nil {
             
             let labels = self.labels
@@ -240,7 +234,53 @@ extension ImageIdentificationViewController: LocationFinderDelegate {
         DispatchQueue.main.async {
             MBProgressHUD.hide(for: self.view, animated: true)
             //TODO pop up an alert controller with message
-            print(reason.rawValue)
+            //print(reason.rawValue)
+            
+            let alertController = UIAlertController(title: "Problem fetching location.", message: reason.rawValue, preferredStyle: .alert)
+            
+            switch reason {
+                
+            case .error:
+                
+                let okAction = UIAlertAction(title: "OK",
+                                             
+                                             style: .default, handler: nil)
+                alertController.addAction(okAction)
+                
+            case .noPermission:
+                
+                let retryAction = UIAlertAction(title: "Location Permissions are required for the application to run properly", style: .default, handler: { (action) in
+                    
+                    self.locationFinder?.findLocation()
+                    
+                })
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                                                 
+                                                 style: .cancel, handler: nil)
+                
+                alertController.addAction(retryAction)
+                alertController.addAction(cancelAction)
+                
+            case .timeout:
+                
+                let retryAction = UIAlertAction(title: "Location Permissions are required for the application to run properly", style: .default, handler: { (action) in
+                    
+                    self.locationFinder?.findLocation()
+                    
+                })
+                
+                let cancelAction = UIAlertAction(title: "OK",
+                                                 
+                                                 style: .cancel, handler: nil)
+                
+                alertController.addAction(retryAction)
+                alertController.addAction(cancelAction)
+                
+            }
+            
+            self.present(alertController, animated: true,
+                         completion: nil)
             
         }
     }

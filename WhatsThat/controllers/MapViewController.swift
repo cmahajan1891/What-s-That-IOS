@@ -43,6 +43,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let allAnnotations = self.mapView.annotations
+        self.mapView.removeAnnotations(allAnnotations)
         let locations = persistanceManager?.fetchLocations()
         let favorites = persistanceManager?.fetchFavorites()
         putMarkers(locations:locations!, favorites:favorites!)

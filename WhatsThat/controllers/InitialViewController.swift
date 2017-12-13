@@ -9,7 +9,7 @@
 import UIKit
 
 class InitialViewController: UIViewController {
-    
+    //Setting the property newMedia to true if camera is selected.
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "selectPhotoSegue" {
             let destinationViewController = segue.destination as? ImageIdentificationViewController
